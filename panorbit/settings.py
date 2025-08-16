@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3xb%+*2uex+%1&$@=*+(@^atnm!#tz-n&i5qn$o46jnp&u*2l^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["yar-django.mypowerly.com", "145.223.79.113"]
 
 
 
@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'panorbit.wsgi.application'
 DATABASES = { 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'world',
-        'USER': 'khan',
-        'PASSWORD': '12345',
+        'NAME': 'django_cid_db',
+        'USER': 'wazir',
+        'PASSWORD': '123',
         'HOST': 'localhost',
         'PORT': '3306',
     }   
