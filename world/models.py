@@ -72,38 +72,31 @@ class DjangoMigrations(models.Model):
         db_table = 'django_migrations'
 
 class MyCustomUserManager(BaseUserManager):
-    def create_user(self, email_id, first_name, last_name, password=None):
-        """
-        Creates and saves a User with the given email and password.
-        """
-        if not email_id:
-            raise ValueError('Users must have an email address')
-
-        user = self.model(
-            email=MyCustomUserManager.normalize_email(email_id),
-            first_name=first_name,
-            last_name=last_name,
-        )
-
+    def create_user(self, email, first_name, last_name=None, password=None):
+        if not email:
+            raise ValueError("Users must have an email address")
+        email = self.normalize_email(email)
+        user = self.model(email=email, first_name=first_name, last_name=last_name)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_superuser(self, email, password, first_name, last_name=None):
-        u = self.create_user(email_id=email, password=password, first_name=first_name, last_name=last_name)
-        u.is_superuser = True
-        u.is_staff = True
-        u.save(using=self._db)
-        return u
+        user = self.create_user(email=email, first_name=first_name, last_name=last_name, password=password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
 
-class User(AbstractUser):
+
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(primary_key=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, primary_key=True)
-  
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     objects = MyCustomUserManager()
-
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name"]
