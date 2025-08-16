@@ -9,7 +9,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, UserManager
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, UserManager, PermissionsMixin
 
 from phonenumber_field.modelfields import PhoneNumberField
 
