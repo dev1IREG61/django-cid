@@ -1,15 +1,13 @@
-from django.conf.urls import url
-
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-    url(r'^signup$', views.signup, name="signup"),
-    url(r"^signup/validate$", views.signup_validate, name="signup_validate"),
-    url(r'^login$', views.c_login, name="login"),
-    url(r'^login/send_otp$', views.send_otp, name="send_otp"),
-    url(r"^login/validate$", views.login_validate, name="login_validate"),
-    url(r'^search$', views.search, name="search"),
-    url(r'country/(?P<country_name>[\w|\W]+)$', views.get_country_details, name="country_page"),
-    url(r'^logout$', views.c_logout, name="logout"),
+    path('/', views.home, name='home'),                     # Home page
+    path('signup/', views.signup, name="signup"),          # Signup page
+    path('signup/validate/', views.signup_validate, name="signup_validate"),  # AJAX signup
+    path('login/', views.c_login, name="login"),           # Login page
+    path('login/validate/', views.login_validate, name="login_validate"),    # AJAX login
+    path('logout/', views.c_logout, name="logout"),       # Logout
+    path('search/', views.search, name="search"),         # Search page
+    re_path(r'^country/(?P<country_name>[\w|\W]+)$', views.get_country_details, name="country_page"),
 ]

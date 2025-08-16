@@ -1,40 +1,22 @@
-var $DOM = $(document);
+$(document).on("click", "#login_submit", function () {
+  let data = {
+    email: $(".email").val(),
+    password: $(".password").val(),
+  };
 
-$DOM.on('click', '#send_otp', function() {
-
-	console.log("send otp clicked");
-    data = {}
-    data["email"] = $(".email").val();
-
-	$.ajax({
-		type: 'post',
-        data: JSON.stringify(data),
-		url: '/login/send_otp',
-		success: function(result) {
-            console.log(result);
-		}
-	});
-});
-
-$DOM.on('click', '#login_submit', function() {
-
-	console.log("login clicked");
-    data = {}
-    data["email"] = $(".email").val();
-    data["otp"] = $(".otp").val()
-
-	$.ajax({
-		type: 'post',
-        data: JSON.stringify(data),
-		url: '/login/validate',
-		success: function(result) {
-            if (result.success) {
-                window.location.href = "/";
-            }
-            else {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.error(result.message);
-            }
-		}
-	});
+  $.ajax({
+    type: "post",
+    url: "/world/login/validate/",
+    data: data,
+    success: function (result) {
+      if (result.success) {
+        window.location.href = "/";
+      } else {
+        alert(result.message);
+      }
+    },
+    error: function () {
+      alert("Login failed. Please try again.");
+    },
+  });
 });

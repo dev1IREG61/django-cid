@@ -60,7 +60,7 @@ class Countrylanguage(models.Model):
         unique_together = (('countrycode', 'language'),)
 
     def __unicode__(self):
-	return ("country-code: %s language: %s") %(self.countrycode.name, self.language)
+	    return ("country-code: %s language: %s") %(self.countrycode.name, self.language)
 
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
@@ -99,10 +99,8 @@ class MyCustomUserManager(BaseUserManager):
 class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True, null=True)
-    username = models.CharField(max_length=100, blank=True, null=True)
-    gender = models.CharField(max_length=100, default="female")
     email = models.CharField(max_length=100, primary_key=True)
-    phone_number = PhoneNumberField(blank=True)
+  
 
     objects = MyCustomUserManager()
 
