@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static   # 👈 needed for static()
 
 def home(request):
-    return HttpResponse("Welcome to Panorbit!")
+    return HttpResponse("helo bro")
 
 urlpatterns = [
     path('', home, name='home'),              # Root URL
